@@ -359,8 +359,14 @@ button.flexsearch-trigger {
   text-decoration: underline;
 }
 
-/* mobile: no keyboard hints, fullscreen modal */
+/* mobile: icon-only trigger, no keyboard hints, fullscreen modal */
 @media (max-width: 639px) {
+  button.flexsearch-trigger {
+    justify-content: center;
+    width: auto;
+    padding: .375rem;
+  }
+  .flexsearch-trigger-label,
   .flexsearch-trigger-keys,
   .flexsearch-hints {
     display: none;

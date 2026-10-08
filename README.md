@@ -9,7 +9,7 @@ The _FlexSearch_ component theme for [Cecil](https://cecil.app) adds a client si
 ## Features
 
 - **No service**: the index is a static JSON file, generated at build time (one per language)
-- **DocSearch-like modal**: `Ctrl`/`⌘` + `K` shortcut, keyboard navigation, fullscreen on mobile
+- **DocSearch-like modal**: `Ctrl`/`⌘` + `K` shortcut, keyboard navigation, fullscreen on mobile (with an icon-only trigger)
 - **Results grouped by section**, each section being ranked and limited on its own
 - **Split pages**: one record per `<h2>`/`<h3>` heading, linked to its anchor
 - **Highlighting** of the matched terms, and fuzzy matching when nothing matches strictly

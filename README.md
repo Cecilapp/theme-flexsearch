@@ -4,6 +4,8 @@ The _FlexSearch_ component theme for [Cecil](https://cecil.app) adds a client si
 
 ![Screenshot](docs/screenshot.png)
 
+**[Demo](https://cecilapp.github.io/theme-flexsearch/)**
+
 ## Features
 
 - **No service**: the index is a static JSON file, generated at build time (one per language)

@@ -6,7 +6,7 @@
 {%- set config = {
   library: '' ~ asset(library, {minify: false, ignore_missing: true}),
   index: index ? url(index, {format: 'json'}) : '',
-  base: url(),
+  base: url()|trim('/', 'right') ~ '/',
   language: '' ~ site.language,
   hotkey: options.hotkey ?? 'k',
   options: {

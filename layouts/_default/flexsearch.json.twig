@@ -29,6 +29,8 @@
 {%- set entities = {'&lt;': '<', '&gt;': '>', '&quot;': '"', '&#039;': "'", '&#39;': "'", '&nbsp;': ' ', '&hellip;': '…', '&amp;': '&'} -%}
 {#- JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE -#}
 {%- set json = 64 b-or 256 -%}
+{#- base path of the site (`/` or `/sub/path/`): records `href` are relative to it -#}
+{%- set base = url()|trim('/', 'right') ~ '/' -%}
 {#- indexed sections: configured, or every root section of the site -#}
 {%- set sections = site.flexsearch.sections|default({}) -%}
 {%- if sections is empty -%}
@@ -83,7 +85,7 @@
         title: title,
         description: description,
         content: content,
-        href: url(p, {canonical: false})|trim('/', 'left') ~ fragment
+        href: url(p, {canonical: false})|slice(base|length) ~ fragment
       } -%}
       {%- if options.date|default(false) -%}
         {%- set document = document|merge({date: p.date|date('Y-m-d')}) -%}

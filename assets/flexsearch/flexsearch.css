@@ -110,6 +110,16 @@ button.flexsearch-trigger {
   display: inline-flex;
   gap: .2rem;
 }
+/* icon only trigger (`trigger: icon`) */
+button.flexsearch-trigger.flexsearch-trigger-icon-only {
+  justify-content: center;
+  width: auto;
+  padding: .375rem;
+}
+.flexsearch-trigger.flexsearch-trigger-icon-only .flexsearch-trigger-label,
+.flexsearch-trigger.flexsearch-trigger-icon-only .flexsearch-trigger-keys {
+  display: none;
+}
 
 /* keyboard keys (the trigger may live in a container that also styles kbd) */
 .flexsearch-kbd,
@@ -359,14 +369,14 @@ button.flexsearch-trigger {
   text-decoration: underline;
 }
 
-/* mobile: icon-only trigger, no keyboard hints, fullscreen modal */
+/* mobile: icon only trigger (unless `trigger: full`), no keyboard hints, fullscreen modal */
 @media (max-width: 639px) {
-  button.flexsearch-trigger {
+  button.flexsearch-trigger:not(.flexsearch-trigger-full) {
     justify-content: center;
     width: auto;
     padding: .375rem;
   }
-  .flexsearch-trigger-label,
+  .flexsearch-trigger:not(.flexsearch-trigger-full) .flexsearch-trigger-label,
   .flexsearch-trigger-keys,
   .flexsearch-hints {
     display: none;

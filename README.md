@@ -97,6 +97,7 @@ flexsearch:
   enabled: true # display the search box
   version: '0.8.212' # FlexSearch library version, loaded from jsDelivr
   library: '' # URL of the FlexSearch library (overrides `version`)
+  trigger: auto # trigger button: auto (icon only on mobile), icon (always icon only) or full (always with label)
   hotkey: k # Ctrl/⌘ + hotkey opens the search box (false to disable)
   credit: true # display the "Search by FlexSearch" credit
   tokenize: forward # strict, forward, reverse or full

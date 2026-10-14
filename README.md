@@ -58,6 +58,12 @@ The trigger button and the modal can also be included separately:
 {{ include('partials/flexsearch/dialog.html.twig') }}
 ```
 
+The `trigger` variable overrides the `flexsearch.trigger` option for one button, for example a large search box on the home page:
+
+```twig
+{{ include('partials/flexsearch/trigger.html.twig', {trigger: 'full'}) }}
+```
+
 Any element with a `data-flexsearch-open` attribute opens the modal:
 
 ```html

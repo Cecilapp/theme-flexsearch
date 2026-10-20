@@ -33,3 +33,7 @@ Each indexed field (title, page, description and content) has a resolution, from
 ### Fuzzy matching
 
 With `suggest: true`, the search falls back to fuzzy matching when nothing matches strictly, so a typo still returns results.
+
+### Recent searches
+
+The last selected results are stored in the browser (`localStorage`, one list per language) and displayed in a "Recent" group when the search box is opened. The `recent` option sets their maximum number (`5` by default), or disables them with `0`.

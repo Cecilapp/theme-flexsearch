@@ -28,6 +28,7 @@ flexsearch:
   delay: 120 # delay (ms) after typing before searching
   boundary: 160 # maximum length of a highlighted snippet
   snippet: 180 # maximum length of a non highlighted snippet
+  recent: 5 # maximum number of recent searches (selected results) stored in the browser (0 to disable)
   # sections to index, in the order of the result groups (all sections by default)
   #sections:
   #  docs:

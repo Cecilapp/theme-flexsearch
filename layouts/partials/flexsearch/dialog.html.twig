@@ -17,13 +17,16 @@
     min_length: options.min_length|default(1),
     delay: options.delay|default(120),
     boundary: options.boundary|default(160),
-    snippet: options.snippet|default(180)
+    snippet: options.snippet|default(180),
+    recent: options.recent ?? 5
   },
   i18n: {
     prompt: 'Type to start searching.'|trans,
     loading: 'Loading the search index…'|trans,
     empty: 'No results found.'|trans,
-    error: 'Search is unavailable.'|trans
+    error: 'Search is unavailable.'|trans,
+    recent: 'Recent'|trans,
+    remove: 'Remove from recent searches'|trans
   }
 } -%}
 <dialog id="flexsearch-dialog" class="flexsearch-dialog" aria-label="{% trans %}Search the site{% endtrans %}">

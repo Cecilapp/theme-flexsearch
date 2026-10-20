@@ -33,3 +33,7 @@ Chaque champ indexé (titre, page, description et contenu) a une résolution, de
 ### Recherche approchée
 
 Avec `suggest: true`, la recherche se rabat sur une correspondance approchée quand rien ne correspond strictement : une faute de frappe donne quand même des résultats.
+
+### Recherches récentes
+
+Les derniers résultats sélectionnés sont mémorisés dans le navigateur (`localStorage`, une liste par langue) et affichés dans un groupe « Récents » à l’ouverture de la boîte de recherche. L’option `recent` définit leur nombre maximum (`5` par défaut), ou les désactive avec `0`.

@@ -13,6 +13,7 @@ The _FlexSearch_ component theme for [Cecil](https://cecil.app) adds a client si
 - **Results grouped by section**, each section being ranked and limited on its own
 - **Split pages**: one record per `<h2>`/`<h3>` heading, linked to its anchor
 - **Highlighting** of the matched terms, and fuzzy matching when nothing matches strictly
+- **Recent searches**: the last selected results, stored in the browser
 - **Lazy loading**: the library and the index are loaded on first use
 - **Customizable** styles (CSS custom properties) with light and dark modes
 - **Translatable** (English and French included)
@@ -118,10 +119,13 @@ flexsearch:
   delay: 120 # delay (ms) after typing before searching
   boundary: 160 # maximum length of a highlighted snippet
   snippet: 180 # maximum length of a non highlighted snippet
+  recent: 5 # maximum number of recent searches (selected results) stored in the browser (0 to disable)
 ```
 
 > [!NOTE]
 > The FlexSearch library is downloaded from jsDelivr at build time, and published with the website.
+
+Recent searches are the last selected results, stored in the browser's `localStorage` (one list per language) and displayed in a "Recent" group while the query is empty.
 
 ### Index
 

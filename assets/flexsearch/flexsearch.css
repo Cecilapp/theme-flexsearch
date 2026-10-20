@@ -315,6 +315,38 @@ button.flexsearch-trigger.flexsearch-trigger-icon-only {
   color: var(--flexsearch-selected-color);
   background: var(--flexsearch-selected-bg);
 }
+/* recent search: room for its remove button */
+.flexsearch-result.flexsearch-result-recent {
+  position: relative;
+}
+.flexsearch-result-recent .flexsearch-result-link {
+  padding-right: 2.75rem;
+}
+.flexsearch-result .flexsearch-result-remove {
+  position: absolute;
+  top: 50%;
+  right: .5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: .25rem;
+  line-height: 0;
+  color: var(--flexsearch-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: none;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+.flexsearch-result .flexsearch-result-remove:hover,
+.flexsearch-result .flexsearch-result-remove:focus-visible {
+  color: var(--flexsearch-heading-color);
+  background: var(--flexsearch-surface);
+}
 .flexsearch-result-page {
   display: block;
   font-size: .7rem;

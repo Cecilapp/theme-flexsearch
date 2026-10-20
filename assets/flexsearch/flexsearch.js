@@ -20,6 +20,7 @@
   var hits = [];
   var cursor = -1;
   var timer = null;
+  var storage = 'flexsearch-recent-' + CONFIG.language; // recent searches, per language
 
   // macOS shows the ⌘ key instead of Ctrl
   if (navigator.platform && navigator.platform.indexOf('Mac') === 0) {
@@ -103,6 +104,33 @@
     return text.length > OPTIONS.snippet && text.indexOf('<mark>') === -1 ? text.slice(0, OPTIONS.snippet) + '…' : text;
   }
 
+  // recently selected results, most recent first
+  function recent() {
+    if (!OPTIONS.recent) { return []; }
+    try { return JSON.parse(localStorage.getItem(storage)) || []; } catch (e) { return []; }
+  }
+
+  function saveRecent(entries) {
+    try { localStorage.setItem(storage, JSON.stringify(entries.slice(0, OPTIONS.recent))); } catch (e) { /* storage unavailable */ }
+  }
+
+  function remember(doc) {
+    if (!OPTIONS.recent) { return; }
+    var entry = { href: doc.href, title: doc.title, page: context(doc) };
+    saveRecent([entry].concat(recent().filter(function (r) { return r.href !== entry.href; })));
+  }
+
+  function forget(href) {
+    saveRecent(recent().filter(function (r) { return r.href !== href; }));
+    search();
+    input.focus();
+  }
+
+  function go(hit) {
+    remember(hit.doc);
+    window.location.href = CONFIG.base + hit.doc.href;
+  }
+
   function query(section, text, suggest) {
     // `limit` applies to each field: merged results can exceed it
     return indexes[section.name].search({
@@ -121,7 +149,16 @@
     cursor = -1;
     hits = [];
     input.setAttribute('aria-expanded', 'false');
-    if (text.length < OPTIONS.min_length) { setStatus(I18N.prompt); return; }
+    if (text.length < OPTIONS.min_length) {
+      // no query: show the recent searches, if any
+      hits = recent().map(function (r) { return { doc: r, recent: true }; });
+      if (!hits.length) { setStatus(I18N.prompt); return; }
+      results.appendChild(group({ name: 'recent', title: I18N.recent }, hits, 0));
+      setStatus(null);
+      input.setAttribute('aria-expanded', 'true');
+      select(0);
+      return;
+    }
     if (!indexes) { load(); return; }
     for (var s = 0; s < sections.length; s++) {
       // strict first, then fall back to fuzzy matching when nothing matches
@@ -175,8 +212,27 @@
       + '<span class="flexsearch-result-title">' + escape((hit.highlight || {}).title || hit.doc.title) + '</span>'
       + (text ? '<span class="flexsearch-result-snippet">' + escape(text) + '</span>' : '');
     a.addEventListener('mouseenter', function () { select(i); });
+    a.addEventListener('click', function () { remember(hit.doc); });
     li.appendChild(a);
+    if (hit.recent) {
+      li.classList.add('flexsearch-result-recent');
+      li.appendChild(remove(hit.doc.href));
+    }
     return li;
+  }
+
+  // removes an entry from the recent searches
+  function remove(href) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'flexsearch-result-remove';
+    button.setAttribute('aria-label', I18N.remove);
+    button.title = I18N.remove;
+    button.innerHTML = '<svg viewbox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 18 18 6M6 6l12 12"/></svg>';
+    // keeps the focus in the input
+    button.addEventListener('mousedown', function (event) { event.preventDefault(); });
+    button.addEventListener('click', function () { forget(href); });
+    return button;
   }
 
   function select(i) {
@@ -193,8 +249,7 @@
     load();
     dialog.showModal();
     input.value = '';
-    setStatus(I18N.prompt);
-    results.innerHTML = '';
+    search();
     input.focus();
   }
 
@@ -223,7 +278,7 @@
     else if (event.key === 'ArrowUp') { event.preventDefault(); select(cursor - 1); }
     else if (event.key === 'Enter' && cursor > -1 && hits[cursor]) {
       event.preventDefault();
-      window.location.href = CONFIG.base + hits[cursor].doc.href;
+      go(hits[cursor]);
     }
   });
 
